@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Moment For You 💛</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    text-align: center;
+    background: linear-gradient(135deg, #ff4d6d, #ff758f, #ff8fa3);
+    color: white;
+}
+
+/* Floating hearts */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: float 10s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes float {
+    0% { transform: translateY(0) translateX(0); }
+    100% { transform: translateY(-110vh) translateX(30px); }
+}
+
+/* Sections */
+.section {
+    display: none;
+    padding: 40px 20px;
+}
+.active { display: block; }
+
+/* Heart button */
+.big-heart {
+    font-size: 80px;
+    cursor: pointer;
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Envelope container */
+.envelope {
+    width: 220px;
+    height: 140px;
+    margin: 40px auto;
+    position: relative;
+    cursor: pointer;
+    perspective: 800px;
+}
+
+/* Envelope body */
+.envelope-body {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    position: absolute;
+    bottom: 0;
+}
+
+/* Flap */
+.flap {
+    width: 100%;
+    height: 100%;
+    background: #f5f5f5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    clip-path: polygon(0 0, 100% 0, 50% 55%);
+    transform-origin: top;
+    transition: transform 0.6s ease;
+    border-radius: 8px;
+}
+
+/* Open animation */
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
+
+/* Letter */
+.letter {
+    background: rgba(0,0,0,0.6);
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 400px;
+    margin: auto;
+    animation: fadeIn 1s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+button {
+    background: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Floating hearts -->
+<script>
+for (let i = 0; i < 20; i++) {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (6 + Math.random() * 6) + "s";
+    heart.innerHTML = "💖";
+    document.body.appendChild(heart);
+}
+</script>
+
+<!-- Intro -->
+<div id="intro" class="section active">
+<h2>This is just a small moment… for you ✨</h2>
+<div class="big-heart" onclick="showEnvelope()">❤️</div>
+<p>Tap the heart to continue</p>
+</div>
+
+<!-- Envelope -->
+<div id="envelopeSection" class="section">
+<h2>A little surprise 💌</h2>
+
+<div class="envelope" id="env" onclick="openEnvelope()">
+    <div class="flap"></div>
+    <div class="envelope-body"></div>
+</div>
+
+<p>Tap the envelope to open</p>
+</div>
+
+<!-- Letter -->
+<div id="letterSection" class="section">
+<div class="letter">
+<h3>Hey, Hope uko fiti 💛</h3>
+<p>
+It's valentines day, mine was just the smallest I could do.<br><br>
+It's not chocolates or a money bouquet, but hope it makes you smile ❤️🥳.<br><br>
+After all it's the thought that counts 😂😂<br>
+HAPPY VALENTINES DAY!
+</p>
+<button onclick="showGoodbye()">Send a hug back 🤗</button>
+</div>
+</div>
+
+<!-- Goodbye -->
+<div id="goodbyeSection" class="section">
+<h2>Goodbye for now 👋</h2>
+<p>
+I hope this little moment made you smile.<br><br>
+Wishing you a beautiful day ahead filled with peace, laughter, and good vibes ✨
+</p>
+<p id="closeMsg" style="margin-top:20px;"></p>
+</div>
+
+<script>
+function showEnvelope(){
+    document.getElementById("intro").classList.remove("active");
+    document.getElementById("envelopeSection").classList.add("active");
+}
+
+function openEnvelope(){
+    const env = document.getElementById("env");
+    env.classList.add("open");
+
+    setTimeout(() => {
+        document.getElementById("envelopeSection").classList.remove("active");
+        document.getElementById("letterSection").classList.add("active");
+    }, 700);
+}
+
+function showGoodbye(){
+    document.getElementById("letterSection").classList.remove("active");
+    document.getElementById("goodbyeSection").classList.add("active");
+
+    setTimeout(() => {
+        document.getElementById("closeMsg").innerHTML = "BYEEE 😊";
+    }, 3000);
+}
+</script>
+
+</body>
+</html>
